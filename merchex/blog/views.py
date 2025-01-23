@@ -7,8 +7,11 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return HttpResponse("Bienvenue sur mon super blog !")
-
+    print(f"Utilisateur connecté ? {request.user.is_authenticated}")  # Débogage
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        return render(request, 'blog/home.html')
 
 def signup(request):
     if request.method == 'POST':
